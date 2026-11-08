@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "Listing maximum 5 S3 buckets"
+
+echo "aws s3api list-buckets --query Buckets[:5]"
+aws s3api list-buckets \
+    --query "Buckets[:5].[Name]" \
+    --output table
+
+echo "Bucket listing completed!"

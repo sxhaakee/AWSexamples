@@ -1,1 +1,17 @@
 #!/usr/bin/env bash
+
+echo "Uploading file $1 to bucket $2"
+
+#Check for file and bucket name
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: ./put-object file.txt my-bucket-name"
+    exit 1
+fi
+
+FILE_NAME=$1
+BUCKET_NAME=$2
+
+echo "aws s3 cp $FILE_NAME s3://$BUCKET_NAME/"
+aws s3 cp "$FILE_NAME" "s3://$BUCKET_NAME/"
+
+echo "File $FILE_NAME uploaded successfully!"

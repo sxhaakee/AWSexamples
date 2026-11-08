@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo "Getting the newest S3 bucket"
+
+echo "aws s3api list-buckets --query reverse(sort_by(Buckets, &CreationDate))[:1]"
+aws s3api list-buckets \
+    --query "reverse(sort_by(Buckets, &CreationDate))[:1]" \
+    --output table
+
+echo "Newest bucket retrieved successfully!"

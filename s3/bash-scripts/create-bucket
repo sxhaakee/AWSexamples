@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
+
 echo "Creating bucket $1"
+
 #Check for bucket name
 if [ -z "$1" ]; then
-    echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+    echo "There needs to be a bucket name eg. ./create-bucket my-bucket-name"
     exit 1
 fi
 
 BUCKET_NAME=$1
 
-echo "aws s3api create-bucket --bucket $BUCKET_NAME "
+echo "aws s3api create-bucket --bucket $BUCKET_NAME"
 aws s3api create-bucket \
     --bucket "$BUCKET_NAME" \
     --region us-east-1 \
     --output text
+
+echo "Bucket $BUCKET_NAME created successfully!"

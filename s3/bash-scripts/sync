@@ -1,1 +1,17 @@
 #!/usr/bin/env bash
+
+echo "Syncing directory $1 with bucket $2"
+
+#Check for directory and bucket name
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: ./sync my-folder my-bucket-name"
+    exit 1
+fi
+
+FOLDER_NAME=$1
+BUCKET_NAME=$2
+
+echo "aws s3 sync $FOLDER_NAME s3://$BUCKET_NAME/"
+aws s3 sync "$FOLDER_NAME" "s3://$BUCKET_NAME/"
+
+echo "Sync completed successfully!"

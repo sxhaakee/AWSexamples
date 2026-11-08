@@ -1,1 +1,19 @@
 #!/usr/bin/env bash
+
+echo "Listing maximum 5 objects from bucket $1"
+
+#Check for bucket name
+if [ -z "$1" ]; then
+    echo "Usage: ./list-objects my-bucket-name"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+
+echo "aws s3api list-objects-v2 --bucket $BUCKET_NAME --max-items 5"
+aws s3api list-objects-v2 \
+    --bucket "$BUCKET_NAME" \
+    --max-items 5 \
+    --output table
+
+echo "Object listing completed!"
