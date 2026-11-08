@@ -20,3 +20,9 @@ aws s3api put-object --bucket="metadata-bucket234" --key="hello.txt" --body="hel
 '''sh
 aws s3api head-object --bucket="metadata-bucket234" --key="hello.txt" 
 '''
+
+## Cleanup
+'''sh
+aws s3 rm s3://metadata-bucket234/hello.txt
+aws s3 rb s3://metadata-bucket234
+'''
