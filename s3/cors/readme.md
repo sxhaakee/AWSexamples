@@ -32,7 +32,7 @@ aws s3 cp index.html s3://cors-bucket234
 
 ## View the website and see if the index.html is there.
 
-http://cors-bucket234.s3-website.ca-central-1.amazonaws.com
+http://cors-bucket234.s3-website-us-east-1.amazonaws.com
 
 
 # Create Website 2
