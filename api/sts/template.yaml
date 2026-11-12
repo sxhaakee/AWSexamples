@@ -1,0 +1,62 @@
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create a role for us to assume and create resources we'll have access to.
+
+Parameters:
+  Bucketname:
+    Type: String
+    Default: "sts-fun-234-shakeeb-2026"
+    Description: The name of the bucket to create.
+
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Ref Bucketname
+
+  StsRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam::617908174643:user/sts-machine-user
+            Action:
+              - 'sts:AssumeRole'
+
+      Path: /
+
+      Policies:
+        - PolicyName: s3access
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              # Allows listing bucket names in this AWS account
+              - Effect: Allow
+                Action:
+                  - 's3:ListAllMyBuckets'
+                Resource: '*'
+
+              # Allows inspecting the created bucket
+              - Effect: Allow
+                Action:
+                  - 's3:ListBucket'
+                  - 's3:GetBucketLocation'
+                  - 's3:GetBucketPolicy'
+                  - 's3:GetBucketAcl'
+                  - 's3:GetBucketPublicAccessBlock'
+                  - 's3:GetBucketPolicyStatus'
+                Resource:
+                  - !Sub "arn:aws:s3:::${Bucketname}"
+
+Outputs:
+  RoleArn:
+    Description: ARN of the IAM role to assume
+    Value: !GetAtt StsRole.Arn
+
+  BucketName:
+    Description: Name of the created S3 bucket
+    Value: !Ref S3Bucket

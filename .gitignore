@@ -6,3 +6,6 @@
 .terraform/
 *.tfvars
 node_modules/
+# Ruby dependencies
+**/vendor/
+**/.bundle/

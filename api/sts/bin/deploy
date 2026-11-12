@@ -1,0 +1,10 @@
+
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+aws cloudformation deploy \
+    --template-file "$SCRIPT_DIR/template.yaml" \
+    --stack-name my-sts-fun-stack \
+    --capabilities CAPABILITY_IAM \
+    --parameter-overrides Bucketname=sts-fun-234-shakeeb-2026
